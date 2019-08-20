@@ -1,0 +1,33 @@
+{
+  "name": "postcss-safe-area",
+  "version": "0.0.1",
+  "description": "PostCSS plugin that adds browser fallbacks for safe-area env variables.",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "safe-area",
+    "mobile",
+    "fallback"
+  ],
+  "scripts": {
+    "test": "jest && eslint *.js"
+  },
+  "author": "Philipp Legner <philipp@mathigon.org>",
+  "license": "MIT",
+  "repository": "plegner/postcss-safe-area",
+  "bugs": {
+    "url": "https://github.com/plegner/postcss-safe-area/issues"
+  },
+  "homepage": "https://github.com/plegner/postcss-safe-area",
+  "dependencies": {
+    "postcss": "^7.0.6"
+  },
+  "devDependencies": {
+    "eslint": "^5.10.0",
+    "jest": "^23.6.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
