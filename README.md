@@ -26,7 +26,15 @@ Old iOS and Android browsers don't support environment variables that are requir
 }
 ```
 
-## Usage
+## Installation and Usage
+
+Install this dependency using
+
+```
+npm install postcss-safe-area --save-dev
+```
+
+Now you can use the plugin using
 
 ```js
 postcss([require('postcss-safe-area')])
