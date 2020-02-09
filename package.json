@@ -11,7 +11,7 @@
     "fallback"
   ],
   "scripts": {
-    "test": "jest && eslint *.js"
+    "test": "BROWSERSLIST='ios>=6' jest && eslint *.js"
   },
   "author": "Philipp Legner <philipp@mathigon.org>",
   "license": "MIT",
@@ -21,7 +21,9 @@
   },
   "homepage": "https://github.com/plegner/postcss-safe-area",
   "dependencies": {
-    "postcss": "^7.0.6"
+    "browserslist": "^4",
+    "caniuse-lite": "^1",
+    "postcss": "^7"
   },
   "devDependencies": {
     "eslint": "^5.10.0",

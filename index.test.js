@@ -10,8 +10,8 @@ function run(input, output, opts = {}) {
 }
 
 it('adds safe area fallbacks', function() {
-  return run('a{padding-top:env(safe-area-inset-top);}',
-    'a{padding-top:0px;padding-top:constant(safe-area-inset-top);padding-top:env(safe-area-inset-top);}')
+  return run('a{padding-top:env(safe-area-inset-top, 2px);}',
+    'a{padding-top:2px;padding-top:constant(safe-area-inset-top, 2px);padding-top:env(safe-area-inset-top, 2px);}')
 })
 
 // TODO More tests for calc() and padding/margin shorthands.
