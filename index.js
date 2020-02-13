@@ -16,9 +16,10 @@ module.exports = postcss.plugin('postcss-safe-area', () => {
   const browsers = browserslist();
   const stats = caniuse.feature(caniuse.features['css-env-function']).stats;
   const capabilities = browsers.map(browser => {
-    const [ vendor, version ] = browser.split(' ');
+    const [vendor, version] = browser.split(' ');
     return stats[vendor][version];
   });
+
   const useConstantFunction = capabilities.some(capability => capability === 'a #1');
   const useDefaultValue = capabilities.some(capability => capability === 'n');
   if (!useConstantFunction && !useDefaultValue) {
@@ -31,12 +32,8 @@ module.exports = postcss.plugin('postcss-safe-area', () => {
     root.walkDecls(decl => {
       // env(..., 1px) -> 1px
       if (useDefaultValue) {
-        const fallback = decl.value.replace(expr, (match, param, defaultValue) => {
-          return defaultValue || '0';
-        });
-        if (fallback === decl.value) {
-          return;
-        }
+        const fallback = decl.value.replace(expr, (match, param, defaultValue) => defaultValue || '0');
+        if (fallback === decl.value) return;
         decl.before(`${decl.prop}:${fallback}`);
       }
 
@@ -45,9 +42,7 @@ module.exports = postcss.plugin('postcss-safe-area', () => {
         const fallback = decl.value.replace(expr, (match, param, defaultValue) => {
           return `constant(${param}${defaultValue ? `, ${defaultValue}` : ''})`;
         });
-        if (fallback === decl.value) {
-          return;
-        }
+        if (fallback === decl.value) return;
         decl.before(`${decl.prop}:${fallback}`);
       }
     });
