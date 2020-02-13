@@ -17,7 +17,7 @@ Old iOS and Android browsers don't support environment variables that are requir
 
 ```css
 .foo {
-  padding-top: 0px;
+  padding-top: 0;
   padding-top: constant(safe-area-inset-top);
   padding-top: env(safe-area-inset-top);
   margin: 5em 5em calc(5em + 0px) 5em;
