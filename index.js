@@ -1,4 +1,3 @@
-const postcss = require('postcss');
 const browserslist = require('browserslist');
 const caniuse = require('caniuse-lite');
 
@@ -10,8 +9,7 @@ const vars = [
   'safe-area-inset-right',
 ];
 
-module.exports = postcss.plugin('postcss-safe-area', () => {
-
+module.exports = () => {
   // Get browser capabilities
   const browsers = browserslist();
   const stats = caniuse.feature(caniuse.features['css-env-function']).stats;
@@ -23,13 +21,16 @@ module.exports = postcss.plugin('postcss-safe-area', () => {
   const useConstantFunction = capabilities.some(capability => capability === 'a #1');
   const useDefaultValue = capabilities.some(capability => capability === 'n');
   if (!useConstantFunction && !useDefaultValue) {
-    return () => {};
+    return {
+      postcssPlugin: 'postcss-safe-area'
+    };
   }
 
   // Detects env(..., ...)
   const expr = new RegExp(`env\\(\\s*(${vars.join('|')})\\s*,?\\s*([^)]+)?\\s*\\)`, 'g');
-  return root => {
-    root.walkDecls(decl => {
+  return {
+    postcssPlugin: 'postcss-safe-area',
+    Declaration (decl) {
       // env(..., 1px) -> 1px
       if (useDefaultValue) {
         const fallback = decl.value.replace(expr, (match, param, defaultValue) => defaultValue || '0');
@@ -45,6 +46,7 @@ module.exports = postcss.plugin('postcss-safe-area', () => {
         if (fallback === decl.value) return;
         decl.before(`${decl.prop}:${fallback}`);
       }
-    });
+    }
   };
-});
+};
+module.exports.postcss = true
