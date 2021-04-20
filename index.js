@@ -34,8 +34,9 @@ module.exports = () => {
       // env(..., 1px) -> 1px
       if (useDefaultValue) {
         const fallback = decl.value.replace(expr, (match, param, defaultValue) => defaultValue || '0');
-        if (fallback === decl.value) return;
-        decl.before(`${decl.prop}:${fallback}`);
+        if (fallback !== decl.value) {
+          decl.cloneBefore({ value: fallback });
+        }
       }
 
       // env(...) -> constant(...)
@@ -43,8 +44,9 @@ module.exports = () => {
         const fallback = decl.value.replace(expr, (match, param, defaultValue) => {
           return `constant(${param}${defaultValue ? `, ${defaultValue}` : ''})`;
         });
-        if (fallback === decl.value) return;
-        decl.before(`${decl.prop}:${fallback}`);
+        if (fallback !== decl.value) {
+          decl.cloneBefore({ value: fallback });
+        }
       }
     }
   };
