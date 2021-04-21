@@ -1,10 +1,8 @@
-# PostCSS Safe Area [![Build Status][ci-img]][ci]
+# PostCSS Safe Area
 
 [PostCSS] plugin that adds browser fallbacks for safe-area env variables.
 
 [PostCSS]: https://github.com/postcss/postcss
-[ci-img]:  https://travis-ci.org/plegner/postcss-safe-area.svg
-[ci]:      https://travis-ci.org/plegner/postcss-safe-area
 
 Old iOS and Android browsers don't support environment variables that are required for CSS safe areas. This plugin adds all neccessary fallbacks, and supports `calc()` as well as shorthand properties for multiple margin or padding values.
 
